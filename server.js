@@ -1,10 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const {mongoose} = require('./mongoose');
-require('./models/User');
+const {mongoose} = require('./db/util/mongoose');
+require('./db/models/User');
 
-const User1 = mongoose.model('User1');
+const User = mongoose.model('User');
 
 const PORT = process.env.PORT || 3000;
 
@@ -19,7 +19,7 @@ app.get('/', (req,res)=>{
 app.post('/user', (req,res)=>{
   console.log('called POST /user');
   console.log(JSON.stringify(req.body,undefined,2));
-  const user = new User1(req.body);
+  const user = new User(req.body);
   user.save(user).then(
     (data)=>{
       console.log(`Saved to DB : ${data}`);
