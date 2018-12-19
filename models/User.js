@@ -9,7 +9,7 @@ const UserSchema = new Schema({
     unique : true,
     validate : {
       validator : (value)=>{
-        return false;
+        return true;
       },
       message : props => `${props.value} is not valid name`
     }
