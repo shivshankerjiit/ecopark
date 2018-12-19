@@ -3,8 +3,10 @@ const bodyParser = require('body-parser');
 
 const {mongoose} = require('./db/util/mongoose');
 require('./db/models/User');
+require('./db/models/Expense');
 
 const User = mongoose.model('User');
+const Expense = mongoose.model('Expense');
 
 const PORT = process.env.PORT || 3000;
 
@@ -29,6 +31,20 @@ app.post('/user', (req,res)=>{
     }
   )
   res.status(200).send(req.body);
+});
+
+app.post('/expense', (req,res)=>{
+  console.log(JSON.stringify(req.body,undefined,2));
+  const expense = new Expense(req.body);
+  expense.save().then(
+    (data)=>{
+      console.log(`Saved to DB : ${data}`);
+    },
+    (err) =>{
+      console.log(`Error while saving expense : ${err}`);
+    }
+  );
+  res.status(200).send(res.body);
 });
 
 app.listen(PORT, ()=>{
