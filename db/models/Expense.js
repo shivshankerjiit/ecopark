@@ -12,6 +12,10 @@ const ExpenseSchema = new Schema({
     minlength : 1,
     trim : true,
   }, 
+  amount : {
+    type : Number,
+    required : [true, 'Amount is required']
+  },
   time : {
     type: Number    
   },  
